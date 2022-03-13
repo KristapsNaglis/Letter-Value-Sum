@@ -1,9 +1,15 @@
 # IDE stuff
-.idea/
+.idea
 
-#CMake
-cmake-build-*/
+# Source directory
+## cmake
+cmake-build-*
 CMakeCache.txt
-CMakeFiles/
+CMakeFiles
 cmake_install.cmake
 Makefile
+
+bin/CMakeFiles
+bin/cmake_install.cmake
+bin/CMakeCache.txt
+bin/Makefile
