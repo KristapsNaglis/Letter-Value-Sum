@@ -35,12 +35,28 @@ Call the build system:
 ```
 Welcome to Lettersum - r/dailyprogrammer challenge #399 [EASY]!
 ----------------
-Write something: abc    
-=> Sum of word 'abc' is 6
-Do you want to repeat? [ENTER/Y]es [N]o:
+Write something: 
+=> Sum of word '' is 0
+Do you want to repeat? [ENTER/Y]es [N]o: 
 ----------------
-Write something: z
+Write something: a
+=> Sum of word 'a' is 1
+Do you want to repeat? [ENTER/Y]es [N]o: 
+----------------
+Write something: z  
 => Sum of word 'z' is 26
+Do you want to repeat? [ENTER/Y]es [N]o: 
+----------------
+Write something: cab
+=> Sum of word 'cab' is 6
+Do you want to repeat? [ENTER/Y]es [N]o: 
+----------------
+Write something: excellent
+=> Sum of word 'excellent' is 100
+Do you want to repeat? [ENTER/Y]es [N]o: 
+----------------
+Write something: microspectrophotometries
+=> Sum of word 'microspectrophotometries' is 317
 Do you want to repeat? [ENTER/Y]es [N]o: n
 Quitting...
 ```
