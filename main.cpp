@@ -36,7 +36,7 @@
 
 // Get user input with getline
 std::string getUserWord() {
-    std::cout << "----------------\nWrite somethings: ";
+    std::cout << "----------------\nWrite something: ";
     std::string return_word;
     getline(std::cin, return_word);
     return return_word;
