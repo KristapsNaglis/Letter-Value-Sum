@@ -8,7 +8,7 @@
 // lettersum("cab") => 6
 // lettersum("excellent") => 100
 // lettersum("microspectrophotometries") => 317
-
+//
 // === Additional Challenges ===
 // ! Use the word list for the optional bonus challenges.
 // TODO 1) microspectrophotometries is the only word with a letter sum of 317. Find the only word with a letter sum of 319.
@@ -32,6 +32,7 @@
 
 #include <iostream>
 #include <vector>
+#include "Wordlist.h"
 
 // Get user input with getline
 std::string getUserWord() {
@@ -98,6 +99,10 @@ bool question_y_n(const std::string& question) {
 
 int main() {
     std::cout << "Welcome to Lettersum - r/dailyprogrammer challenge #399 [EASY]!\n";
+
+    Wordlist wl;
+    std::string t = wl.openFile("wordlist.txt");
+    std::cout << t;
 
     bool action = true;
     while (action) {
