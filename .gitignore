@@ -1,15 +1,5 @@
-# IDE stuff
+# IDE
 .idea
 
-# Source directory
-## cmake
-cmake-build-*
-CMakeCache.txt
-CMakeFiles
-cmake_install.cmake
-Makefile
-
-bin/CMakeFiles
-bin/cmake_install.cmake
-bin/CMakeCache.txt
-bin/Makefile
+# CMake
+!build/letter_value_sum
