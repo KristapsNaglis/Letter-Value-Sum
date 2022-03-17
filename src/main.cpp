@@ -33,6 +33,7 @@
 #include <iostream>
 #include <vector>
 #include "wordlist.h"
+#include "letterCalc.h"
 
 // Get user input with getline
 std::string getUserWord() {
@@ -40,34 +41,6 @@ std::string getUserWord() {
     std::string return_word;
     getline(std::cin, return_word);
     return return_word;
-}
-
-// Calculate letter sum using individual char ASCII values
-int letterSum(const std::string& word) {
-    // Create a place to hold a-z ASCII lower and upper limits
-    // Lower limit also acts as subtract value to get actual letter ASCII value down to the desired values,
-    // for example:
-    // +--------+---------------+---------------+-----------+
-    // | letter | ascii value   | subtraction   | got value |
-    // +--------+---------------+---------------+-----------+
-    // |      a | 97            | 97-96         | 1         |
-    // |      b | 98            | 98-96         | 2         |
-    // |      c | 99            | 98-96         | 3         |
-    // ......................................................
-    // |      z | 122           | 122-96        | 26        |
-    // +--------+---------------+---------------+-----------+
-    const std::vector<int> bounds {96, 123};
-
-    // Loop each char in the word string and check if it is located in the needed ASCII bounds
-    // If ok, then add to the sum
-    int value{0};
-    for (char c : word) {
-        int c_val = (unsigned char) c;
-        if (c_val > bounds[0] && c_val < bounds[1]) {
-            value += c_val - bounds[0];
-        }
-    }
-    return value;
 }
 
 // Ask user about continuing or quitting the program and handle the reply accordingly
@@ -100,18 +73,14 @@ bool question_y_n(const std::string& question) {
 int main() {
     std::cout << "Welcome to Lettersum - r/dailyprogrammer challenge #399 [EASY]!\n";
 
-    wordlist wl;
-    std::string t = wl.openFile("wordlist.txt");
-    std::cout << t;
+    letterCalc lc;
 
-    bool action = true;
-    while (action) {
+    do {
         std::string word = getUserWord();
-        int sum = letterSum(word);
+        int sum = lc.calculateSum(word);
         std::cout << "=> Sum of word '" << word << "' is " << sum << "\n";
+    } while (question_y_n("Do you want to repeat? [ENTER/Y]es [N]o"));
 
-        action = question_y_n("Do you want to repeat? [ENTER/Y]es [N]o");
-    }
     std::cout << "Quitting...\n";
     return 0;
 }
