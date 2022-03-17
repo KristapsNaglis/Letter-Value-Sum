@@ -31,7 +31,7 @@ Call the build system:
 ``cmake --build .``
 
 ### Running
-`./bin/letter_value_sum`
+`./build/letter_value_sum`
 
 #### Program example
 ```
