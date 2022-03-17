@@ -20,13 +20,15 @@ Assign every lowercase letter a value, from 1 for a to 26 for z. Given a string 
 6) The list of word { geographically, eavesdropper, woodworker, oxymorons } contains 4 words. Each word in the list has both a different number of letters, and a different letter sum. The list is sorted both in descending order of word length, and ascending order of letter sum. What's the longest such list you can find?
 ---
 ### Building
+Make sure to be in the `build/` directory.
+
 Run CMake to configure the project and generate a native build system:
 
-`cmake -S . -B bin`
+`cmake ../`
 
 Call the build system:
 
-``cmake --build bin``
+``cmake --build .``
 
 ### Running
 `./bin/letter_value_sum`
