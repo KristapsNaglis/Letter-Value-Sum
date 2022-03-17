@@ -2,9 +2,9 @@
 // Created by kristapsn on 13.03.22.
 //
 
-#include "Wordlist.h"
+#include "wordlist.h"
 
-std::string Wordlist::openFile(std::string filename) {
+std::string wordlist::openFile(std::string filename) {
     std::ifstream file{filename};
     std::string output;
     if (!file) {

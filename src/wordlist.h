@@ -9,7 +9,7 @@
 #define LETTER_VALUE_SUM_WORDLIST_H
 
 
-class Wordlist {
+class wordlist {
 public:
     std::string openFile(std::string filename);
 

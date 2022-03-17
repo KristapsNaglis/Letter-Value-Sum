@@ -32,7 +32,7 @@
 
 #include <iostream>
 #include <vector>
-#include "Wordlist.h"
+#include "wordlist.h"
 
 // Get user input with getline
 std::string getUserWord() {
@@ -100,7 +100,7 @@ bool question_y_n(const std::string& question) {
 int main() {
     std::cout << "Welcome to Lettersum - r/dailyprogrammer challenge #399 [EASY]!\n";
 
-    Wordlist wl;
+    wordlist wl;
     std::string t = wl.openFile("wordlist.txt");
     std::cout << t;
 
