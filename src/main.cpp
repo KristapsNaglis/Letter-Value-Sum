@@ -37,19 +37,18 @@
 
 // Get user input with getline
 std::string getUserWord() {
-    std::cout << "----------------\nWrite something: ";
     std::string return_word;
     getline(std::cin, return_word);
     return return_word;
 }
 
-// Ask user about continuing or quitting the program and handle the reply accordingly
+// Ask user question with yes/no answer possibilities, return true/false accordingly
 bool question_y_n(const std::string& question) {
     std::vector<std::vector<std::string>> answers{{"y", "Y", "yes", "YES", ""}, {"n", "N", "no", "NO"}};
     std::string reply;
 
-    int repeat_counter = 0;
-    while (repeat_counter < 3) {
+    unsigned int repeatCounter = 0;
+    while (repeatCounter < 3) {
         std::cout << question << ": ";
         getline(std::cin, reply);
         int counter = 0;
@@ -65,22 +64,73 @@ bool question_y_n(const std::string& question) {
                 }
             }
         }
-        repeat_counter++;
+        repeatCounter++;
     }
     return false;
 }
 
+unsigned int question_multi_range(const std::string &question, unsigned int from, unsigned int to) {
+    unsigned int reply;
+
+    unsigned int repeatCounter = 0;
+    while (repeatCounter < 3) {
+        std::cout << question << ": ";
+        std::cin >> reply;
+        std::cin.clear();
+        std::cin.ignore();
+
+        if (from <= reply <= to) {
+            return reply;
+        }
+
+        std::cout << "Input not correct, please, try again\n";
+        repeatCounter++;
+    }
+    return 0;
+}
+
 int main() {
-    std::cout << "Welcome to Lettersum - r/dailyprogrammer challenge #399 [EASY]!\n";
+    std::cout << "=======================================================================\n";
+    std::cout << "=== Welcome to Lettersum - r/dailyprogrammer challenge #399 [EASY]! ===\n";
+    std::cout << "=======================================================================\n";
 
-    letterCalc lc;
+    // Manual word input
+    if (question_y_n("\nManual word input check? [Enter/Y]es [N]o")) {
+        do {
+            std::cout << "------------------\n";
+            std::cout << "╭─ Write a word: ";
+            std::string word = getUserWord();
+            int sum = letterCalc::calculateSum(word);
+            std::cout << "╰─> Sum of word '" << word << "' is " << sum << "\n";
+            std::cout << "------------------\n";
+        } while (question_y_n("Do you want to repeat manual word input? [Enter/Y]es [N]o"));
+    }
 
-    do {
-        std::string word = getUserWord();
-        int sum = lc.calculateSum(word);
-        std::cout << "=> Sum of word '" << word << "' is " << sum << "\n";
-    } while (question_y_n("Do you want to repeat? [ENTER/Y]es [N]o"));
+    // Additional tasks
+    if (question_y_n("\nExecute additional tasks? [Enter/Y]es [N]o")) {
+        std::ifstream wlFile = wordlist::openFile("../resources/wordlist.txt");
 
-    std::cout << "Quitting...\n";
+        std::cout << "! Choose number 1 - 6. For each option, please check documentation\n";
+        do {
+            std::cout << "------------------\n";
+            unsigned int r = question_multi_range("╭─ Choose additional task number", 1, 6);
+            switch (r) {
+                case 1: {
+                    unsigned int value = 319;
+                    std::string test = wordlist::find_word_by_value(wlFile, value);
+                    std::cout << "╰─> Word '" + test + "' has a value of " << value << "\n";
+                    break;
+                }
+                // Other cases will be added
+                default:
+                    std::cout << "this was not supposed to happen with r=" << r << "\n";
+            }
+            std::cout << "------------------\n";
+        } while (question_y_n("Do you want to repeat additional tasks? [Enter/Y]es [N]o"));
+
+        wlFile.close();
+    }
+
+    std::cout <<"\nQuitting...\n";
     return 0;
 }

@@ -4,13 +4,55 @@
 
 #include "wordlist.h"
 
-std::string wordlist::openFile(std::string filename) {
+std::ifstream wordlist::openFile(const std::string& filename) {
     std::ifstream file{filename};
     std::string output;
+    std::string line;
+
     if (!file) {
         output = "error opening file " + filename;
+        exit(1);
     } else {
-        output = "ok opening file " + filename;
+        return file;
     }
-    return output;
+}
+
+
+std::string wordlist::find_word_by_value(std::ifstream &file, const unsigned int &value) {
+    std::string line;
+
+    if (file.is_open()) {
+        while (getline(file, line)) {
+            unsigned int sum = letterCalc::calculateSum(line);
+            if (sum == value) {
+                return line;
+            }
+        }
+    } else {
+        std::cout << "file is not open anymore\n";
+    }
+    // Return to the beginning of the file
+    file.clear();
+    file.seekg(0);
+    return "";
+}
+
+std::string wordlist::additional2(std::ifstream file) {
+    return std::string();
+}
+
+std::string wordlist::additional3(const std::ifstream file) {
+    return std::string();
+}
+
+std::string wordlist::additional4(const std::ifstream file) {
+    return std::string();
+}
+
+std::string wordlist::additional5(const std::ifstream file) {
+    return std::string();
+}
+
+std::string wordlist::additional6(const std::ifstream file) {
+    return std::string();
 }

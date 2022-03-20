@@ -10,7 +10,7 @@
 
 class letterCalc {
 public:
-    int calculateSum (const std::string& word);
+    static int calculateSum (const std::string& word);
 
 };
 

@@ -35,36 +35,50 @@ Call the build system:
 
 #### Program example
 ```
-Welcome to Lettersum - r/dailyprogrammer challenge #399 [EASY]!
-----------------
-Write something: 
-=> Sum of word '' is 0
-Do you want to repeat? [ENTER/Y]es [N]o: 
-----------------
-Write something: a
-=> Sum of word 'a' is 1
-Do you want to repeat? [ENTER/Y]es [N]o: 
-----------------
-Write something: z  
-=> Sum of word 'z' is 26
-Do you want to repeat? [ENTER/Y]es [N]o: 
-----------------
-Write something: cab
-=> Sum of word 'cab' is 6
-Do you want to repeat? [ENTER/Y]es [N]o: 
-----------------
-Write something: excellent
-=> Sum of word 'excellent' is 100
-Do you want to repeat? [ENTER/Y]es [N]o: 
-----------------
-Write something: microspectrophotometries
-=> Sum of word 'microspectrophotometries' is 317
-Do you want to repeat? [ENTER/Y]es [N]o: n
+=======================================================================
+=== Welcome to Lettersum - r/dailyprogrammer challenge #399 [EASY]! ===
+=======================================================================
+
+Manual word input check? [Enter/Y]es [N]o: 
+------------------
+╭─ Write a word: 
+╰─> Sum of word '' is 0
+------------------
+Do you want to repeat manual word input? [Enter/Y]es [N]o: 
+------------------
+╭─ Write a word: a
+╰─> Sum of word 'a' is 1
+------------------
+Do you want to repeat manual word input? [Enter/Y]es [N]o: y
+------------------
+╭─ Write a word: z
+╰─> Sum of word 'z' is 26
+------------------
+Do you want to repeat manual word input? [Enter/Y]es [N]o: Y
+------------------
+╭─ Write a word: excellent
+╰─> Sum of word 'excellent' is 100
+------------------
+Do you want to repeat manual word input? [Enter/Y]es [N]o: yes
+------------------
+╭─ Write a word: microspectrophotometries
+╰─> Sum of word 'microspectrophotometries' is 317
+------------------
+Do you want to repeat manual word input? [Enter/Y]es [N]o: n
+
+Execute additional tasks? [Enter/Y]es [N]o: YES
+! Choose number 1 - 6. For each option, please check documentation
+------------------
+╭─ Choose additional task number: 1
+╰─> Word 'reinstitutionalizations' has a value of 319
+------------------
+Do you want to repeat additional tasks? [Enter/Y]es [N]o: n
+
 Quitting...
 ```
 
 ---
 
 ### TODO
-1. additional challenge #1-6
+1. additional challenge #2-6
 ---
