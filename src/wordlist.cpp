@@ -10,7 +10,7 @@ std::ifstream wordlist::openFile(const std::string& filename) {
     std::string line;
 
     if (!file) {
-        output = "error opening file " + filename;
+        std::cout << "Err: cannot open " << filename << " file" << "\n\nQuitting...\n";
         exit(1);
     } else {
         return file;

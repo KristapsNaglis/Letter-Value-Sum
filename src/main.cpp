@@ -79,7 +79,8 @@ unsigned int question_multi_range(const std::string &question, unsigned int from
         std::cin.clear();
         std::cin.ignore();
 
-        if (from <= reply <= to) {
+        if (reply >= from && reply <= to) {
+            std::cout << "reply is in range: " << from << "<=" << reply << "<=" << to << "\n";
             return reply;
         }
 
@@ -123,7 +124,7 @@ int main() {
                 }
                 // Other cases will be added
                 default:
-                    std::cout << "this was not supposed to happen with r=" << r << "\n";
+                    break;
             }
             std::cout << "------------------\n";
         } while (question_y_n("Do you want to repeat additional tasks? [Enter/Y]es [N]o"));
