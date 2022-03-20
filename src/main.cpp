@@ -81,7 +81,6 @@ unsigned int question_multi_range(const std::string &question, unsigned int from
         std::cin.ignore();
 
         if (reply >= from && reply <= to) {
-            std::cout << "reply is in range: " << from << "<=" << reply << "<=" << to << "\n";
             return reply;
         }
 
@@ -119,9 +118,13 @@ int main() {
             switch (r) {
                 case 1: {
                     unsigned int value = 319;
-                    std::string test = wordlist::find_word_by_value(wlFile, value);
+                    std::string test = wordlist::findWordByValue(wlFile, value);
                     std::cout << "╰─> Word '" + test + "' has a value of " << value << "\n";
                     break;
+                }
+                case 2: {
+                    unsigned int result = wordlist::countResultsEvenOdd(wlFile, true);
+                    std::cout << "╰─> Found " << result << " odd words\n";
                 }
                 // Other cases will be added
                 default:
