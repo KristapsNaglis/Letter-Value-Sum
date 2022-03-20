@@ -4,7 +4,7 @@
 
 #include "wordlist.h"
 
-std::ifstream wordlist::openFile(const std::string& filename) {
+std::ifstream wordlist::openFile(const std::string &filename) {
     std::ifstream file{filename};
     std::string output;
     std::string line;

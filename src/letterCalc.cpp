@@ -18,12 +18,12 @@ int letterCalc::calculateSum(const std::string &word) {
     // ......................................................
     // |      z | 122           | 122-96        | 26        |
     // +--------+---------------+---------------+-----------+
-    const std::vector<int> bounds {96, 123};
+    const std::vector<int> bounds{96, 123};
 
     // Loop each char in the word string and check if it is located in the needed ASCII bounds
     // If ok, then add to the sum
     int value{0};
-    for (char c : word) {
+    for (char c: word) {
         int c_val = (unsigned char) c;
         if (c_val > bounds[0] && c_val < bounds[1]) {
             value += c_val - bounds[0];

@@ -12,9 +12,9 @@
 
 class wordlist {
 public:
-    static std::ifstream openFile(const std::string& filename);
+    static std::ifstream openFile(const std::string &filename);
 
-    static std::string find_word_by_value(std::ifstream& file, const unsigned int &value);
+    static std::string find_word_by_value(std::ifstream &file, const unsigned int &value);
 };
 
 

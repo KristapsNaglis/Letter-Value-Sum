@@ -43,8 +43,9 @@ std::string getUserWord() {
 }
 
 // Ask user question with yes/no answer possibilities, return true/false accordingly
-bool question_y_n(const std::string& question) {
-    std::vector<std::vector<std::string>> answers{{"y", "Y", "yes", "YES", ""}, {"n", "N", "no", "NO"}};
+bool question_y_n(const std::string &question) {
+    std::vector<std::vector<std::string>> answers{{"y", "Y", "yes", "YES", ""},
+                                                  {"n", "N", "no",  "NO"}};
     std::string reply;
 
     unsigned int repeatCounter = 0;
@@ -132,6 +133,6 @@ int main() {
         wlFile.close();
     }
 
-    std::cout <<"\nQuitting...\n";
+    std::cout << "\nQuitting...\n";
     return 0;
 }
