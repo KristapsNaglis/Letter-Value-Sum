@@ -36,23 +36,3 @@ std::string wordlist::find_word_by_value(std::ifstream &file, const unsigned int
     file.seekg(0);
     return "";
 }
-
-std::string wordlist::additional2(std::ifstream file) {
-    return std::string();
-}
-
-std::string wordlist::additional3(const std::ifstream file) {
-    return std::string();
-}
-
-std::string wordlist::additional4(const std::ifstream file) {
-    return std::string();
-}
-
-std::string wordlist::additional5(const std::ifstream file) {
-    return std::string();
-}
-
-std::string wordlist::additional6(const std::ifstream file) {
-    return std::string();
-}
