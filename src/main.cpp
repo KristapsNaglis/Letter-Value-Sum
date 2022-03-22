@@ -77,8 +77,9 @@ unsigned int question_multi_range(const std::string &question, unsigned int from
     while (repeatCounter < 3) {
         std::cout << question << ": ";
         std::cin >> reply;
+
         std::cin.clear();
-        std::cin.ignore();
+        std::cin.ignore(256, '\n'); // clear all remaining input chars until newline
 
         if (reply >= from && reply <= to) {
             return reply;
@@ -114,7 +115,7 @@ int main() {
         std::cout << "! Choose number 1 - 6. For each option, please check documentation\n";
         do {
             std::cout << "------------------\n";
-            unsigned int r = question_multi_range("╭─ Choose additional task number", 1, 6);
+            unsigned int r = question_multi_range("╭─ Choose task number", 1, 6);
             switch (r) {
                 case 1: {
                     unsigned int value = 319;
