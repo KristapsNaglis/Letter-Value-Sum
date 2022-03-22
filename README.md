@@ -1,8 +1,5 @@
-![cmake build status](https://github.com/KristapsNaglis/399_letter_value_sum/actions/workflows/cmake.yml/badge.svg)
-
 # Letter Value Sum
 ## r/dailyprogrammer challenge [#399](https://www.reddit.com/r/dailyprogrammer/comments/onfehl/20210719_challenge_399_easy_letter_value_sum/) [EASY]
----
 ### Challenge
 Assign every lowercase letter a value, from 1 for a to 26 for z. Given a string of lowercase letters, find the sum of the values of the letters in the string.
 
