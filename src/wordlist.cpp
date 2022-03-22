@@ -29,11 +29,10 @@ std::string wordlist::findWordByValue(std::ifstream &file, const unsigned int &v
                 return line;
             }
         }
+        fileReturnToBeginning(file);
     } else {
         std::cout << "file is not open anymore\n";
     }
-    // Return to the beginning of the file
-    fileReturnToBeginning(file);
     return "";
 }
 
@@ -48,12 +47,41 @@ unsigned int wordlist::countResultsEvenOdd(std::ifstream &file, bool odd) {
                 matchingResultsCounter++;
             }
         }
+        fileReturnToBeginning(file);
     } else {
         std::cout << "file is not open anymore\n";
     }
-    fileReturnToBeginning(file);
     return matchingResultsCounter;
 }
+
+std::pair<unsigned int, unsigned int> wordlist::findMostCommonLetterSum(std::ifstream &file) {
+    std::string line;
+    std::map<unsigned int, unsigned int> sumsCount;
+
+    if (file.is_open()) {
+        while (getline(file, line)) {
+            unsigned int sum = letterCalc::calculateSum(line);
+            if (!sumsCount.contains(sum)) {
+                sumsCount[sum] = 1;
+            } else {
+                sumsCount[sum]++;
+            }
+        }
+        fileReturnToBeginning(file);
+    } else {
+        std::cout << "file is not open anymore\n";
+    }
+
+    std::pair<unsigned int, unsigned int> highest = {0, 0};
+    for (std::pair<unsigned int, unsigned int> s: sumsCount) {
+        if (s.second > highest.second) {
+            highest = s;
+        }
+    }
+
+    return highest;
+}
+
 
 void wordlist::fileReturnToBeginning(std::ifstream &file) {
     file.clear();

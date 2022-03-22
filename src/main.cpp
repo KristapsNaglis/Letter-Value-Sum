@@ -32,6 +32,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include "wordlist.h"
 #include "letterCalc.h"
 
@@ -126,6 +127,13 @@ int main() {
                 case 2: {
                     unsigned int result = wordlist::countResultsEvenOdd(wlFile, true);
                     std::cout << "╰─> Found " << result << " odd words\n";
+                    break;
+                }
+                case 3: {
+                    std::pair<unsigned int, unsigned int> mostCommonSum = wordlist::findMostCommonLetterSum(wlFile);
+                    std::cout << "╰─> Most common sum is '" << mostCommonSum.first << "' with count of "
+                              << mostCommonSum.second << "\n";
+                    break;
                 }
                 // Other cases will be added
                 default:

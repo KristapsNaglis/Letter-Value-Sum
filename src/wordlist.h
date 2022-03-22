@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <map>
 #include "letterCalc.h"
 
 #ifndef LETTER_VALUE_SUM_WORDLIST_H
@@ -15,6 +16,8 @@ public:
     static std::ifstream openFile(const std::string &filename);
 
     static std::string findWordByValue(std::ifstream &file, const unsigned int &value);
+
+    static std::pair<unsigned int, unsigned int> findMostCommonLetterSum(std::ifstream &file);
 
     static unsigned int countResultsEvenOdd(std::ifstream &file, bool odd);
 
