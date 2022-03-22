@@ -25,6 +25,7 @@ std::string wordlist::findWordByValue(std::ifstream &file, const unsigned int &v
         while (getline(file, line)) {
             unsigned int sum = letterCalc::calculateSum(line);
             if (sum == value) {
+                fileReturnToBeginning(file);
                 return line;
             }
         }
@@ -32,8 +33,7 @@ std::string wordlist::findWordByValue(std::ifstream &file, const unsigned int &v
         std::cout << "file is not open anymore\n";
     }
     // Return to the beginning of the file
-    file.clear();
-    file.seekg(0);
+    fileReturnToBeginning(file);
     return "";
 }
 
@@ -51,9 +51,11 @@ unsigned int wordlist::countResultsEvenOdd(std::ifstream &file, bool odd) {
     } else {
         std::cout << "file is not open anymore\n";
     }
-    // Return to the beginning of the file
+    fileReturnToBeginning(file);
+    return matchingResultsCounter;
+}
+
+void wordlist::fileReturnToBeginning(std::ifstream &file) {
     file.clear();
     file.seekg(0);
-
-    return matchingResultsCounter;
 }

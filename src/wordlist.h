@@ -16,7 +16,10 @@ public:
 
     static std::string findWordByValue(std::ifstream &file, const unsigned int &value);
 
-    static unsigned int countResultsEvenOdd(std::ifstream &file, bool even);
+    static unsigned int countResultsEvenOdd(std::ifstream &file, bool odd);
+
+private:
+    static void fileReturnToBeginning(std::ifstream &file);
 };
 
 
