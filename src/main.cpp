@@ -135,6 +135,23 @@ int main() {
                               << mostCommonSum.second << "\n";
                     break;
                 }
+                case 4: {
+                    // Find the pairs
+                    unsigned int difference = 11;
+                    const std::vector<twoWordsOneSum> foundPairVector = wordlist::findPairWithEqualSum(wlFile, difference);
+
+                    // Print the results with dynamically changing arrow. Takes a bit more resources, but looks cleaner
+                    unsigned int foundPairsCount = foundPairVector.size();
+                    auto arrow{"├"};
+                    for (int i = 0; i < foundPairsCount; ++i) {
+                        if (i == foundPairsCount - 1) {
+                            arrow = "╰";
+                        }
+                        std::cout << arrow << "─> Words '" << foundPairVector[i].words.first << "', '" << foundPairVector[i].words.second <<
+                                  "' with sum " << foundPairVector[i].sum << " have length difference by " << difference << " letters\n";
+                    }
+                    break;
+                }
                 // Other cases will be added
                 default:
                     break;
