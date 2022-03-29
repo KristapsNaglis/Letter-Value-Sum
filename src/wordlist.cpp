@@ -84,15 +84,7 @@ std::pair<unsigned int, unsigned int> wordlist::findMostCommonLetterSum(std::ifs
 
 std::vector<twoWordsOneSum> wordlist::findPairWithEqualSum(std::ifstream &file, unsigned int diff) {
     std::string line;
-    std::unordered_map<unsigned int, std::vector<std::string>> sums;
-
-    if (file.is_open()) {
-        while (getline(file, line)) {
-            // Save each word in a vector inside a map that belongs to its sum
-            sums[letterCalc::calculateSum(line)].push_back(line);
-        }
-        fileReturnToBeginning(file);
-    }
+    std::unordered_map<unsigned int, std::vector<std::string>> sums = sortWordsBySum(file);
 
     // Create a place where to store the found matches
     std::vector<twoWordsOneSum> matches;
@@ -126,6 +118,19 @@ std::vector<twoWordsOneSum> wordlist::findPairWithEqualSum(std::ifstream &file, 
     return matches;
 }
 
+std::unordered_map<unsigned int, std::vector<std::string>> wordlist::sortWordsBySum(std::ifstream &file) {
+    std::unordered_map<unsigned int, std::vector<std::string>> sums;
+    std::string line;
+
+    if (file.is_open()) {
+        while (getline(file, line)) {
+            // Save each word in a vector inside a map that belongs to its sum
+            sums[letterCalc::calculateSum(line)].push_back(line);
+        }
+        fileReturnToBeginning(file);
+    }
+    return sums;
+}
 
 void wordlist::fileReturnToBeginning(std::ifstream &file) {
     file.clear();

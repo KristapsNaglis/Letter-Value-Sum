@@ -27,6 +27,8 @@ public:
 
 private:
     static void fileReturnToBeginning(std::ifstream &file);
+
+    static std::unordered_map<unsigned int, std::vector<std::string>> sortWordsBySum(std::ifstream &file);
 };
 
 
