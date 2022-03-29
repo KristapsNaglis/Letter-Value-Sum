@@ -113,8 +113,6 @@ std::vector<twoWordsOneSum> wordlist::findPairWithEqualSum(std::ifstream &file, 
             }
         }
     }
-
-
     return matches;
 }
 
