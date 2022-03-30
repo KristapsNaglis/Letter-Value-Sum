@@ -136,26 +136,39 @@ int main() {
                     break;
                 }
                 case 4: {
-                    // Find the pairs
-                    unsigned int difference = 11;
-                    const std::vector<twoWordsOneSum> foundPairVector = wordlist::findPairWithEqualSum(wlFile,
-                                                                                                       difference);
+                    const unsigned int difference = 11;
+                    // Vector to store found pairs
+                    const auto foundPairs = wordlist::findPairWithSameSum(wlFile, difference);
 
                     // Print the results with dynamically changing arrow. Takes a bit more resources, but looks cleaner
-                    unsigned int foundPairsCount = foundPairVector.size();
+                    const unsigned int foundPairsCount = foundPairs.size();
                     auto arrow{"├"};
                     for (int i = 0; i < foundPairsCount; ++i) {
                         if (i == foundPairsCount - 1) {
                             arrow = "╰";
                         }
-                        std::cout << arrow << "─> Words '" << foundPairVector[i].words.first << "', '"
-                                  << foundPairVector[i].words.second << "' with sum " << foundPairVector[i].sum
+                        std::cout << arrow << "─> Words '" << foundPairs[i].words.first << "', '"
+                                  << foundPairs[i].words.second << "' with sum " << foundPairs[i].sum
                                   << " have length difference by " << difference << " letters\n";
                     }
                     break;
                 }
                 case 5: {
-
+                    // Vector
+                    const auto foundPairs = wordlist::findSameSumNoCommonLetters(wlFile, 188);
+                    auto arrow{"├"};
+                    const unsigned int foundPairsCount = foundPairs.size();
+                    for (int i = 0; i < foundPairs.size(); ++i) {
+                        if (i == foundPairsCount - 1) {
+                            arrow = "╰";
+                        }
+                        std::cout << arrow << "─> Words '" << foundPairs[i].words.first << "', '"
+                                  << foundPairs[i].words.second << "' with sum " << foundPairs[i].sum
+                                  << " share no letters\n";
+                    }
+//                    for (const auto &pair: foundPairs) {
+//                        std::cout << pair.words.first << " & " << pair.words.second << " sum: " << pair.sum << "\n";
+//                    }
                 }
                     // Other cases will be added
                 default:

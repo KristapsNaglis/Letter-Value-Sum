@@ -15,20 +15,28 @@
 
 class wordlist {
 public:
+    // File operations
     static std::ifstream openFile(const std::string &filename);
 
+    // Additional challenge functions
     static std::string findWordByValue(std::ifstream &file, const unsigned int &value);
+
+    static unsigned int countResultsEvenOdd(std::ifstream &file, const bool &odd);
 
     static std::pair<unsigned int, unsigned int> findMostCommonLetterSum(std::ifstream &file);
 
-    static std::vector<twoWordsOneSum> findPairWithEqualSum(std::ifstream &file, unsigned int diff);
+    static std::vector<twoWordsOneSum> findPairWithSameSum(std::ifstream &file, const unsigned int &diff);
 
-    static unsigned int countResultsEvenOdd(std::ifstream &file, bool odd);
+    static std::vector<twoWordsOneSum> findSameSumNoCommonLetters(std::ifstream &file, const unsigned int &sumThreshold);
 
 private:
     static void fileReturnToBeginning(std::ifstream &file);
 
-    static std::unordered_map<unsigned int, std::vector<std::string>> sortWordsBySum(std::ifstream &file);
+    static std::unordered_map<unsigned int, std::vector<std::string>> sortWordsBySum(std::ifstream &file, const unsigned int &sumThreshold);
+
+    static unsigned int calcDiff(const std::pair<unsigned int, unsigned int> &integers);
+
+    static bool checkIfCommonLetter(const std::pair<std::string, std::string> &words);
 };
 
 
