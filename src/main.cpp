@@ -33,6 +33,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <chrono>
 #include "wordlist.h"
 #include "letterCalc.h"
 
@@ -138,7 +139,9 @@ int main() {
                 case 4: {
                     const unsigned int difference = 11;
                     // Vector to store found pairs
+                    auto start = std::chrono::high_resolution_clock::now();
                     const auto foundPairs = wordlist::findPairWithSameSum(wlFile, difference);
+                    auto stop = std::chrono::high_resolution_clock::now();
 
                     // Print the results with dynamically changing arrow. Takes a bit more resources, but looks cleaner
                     const unsigned int foundPairsCount = foundPairs.size();
@@ -151,11 +154,17 @@ int main() {
                                   << foundPairs[i].words.second << "' with sum " << foundPairs[i].sum
                                   << " have length difference by " << difference << " letters\n";
                     }
+
+                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+                    std::cout << "Execution time: " << delta.count() << "ms\n";
                     break;
                 }
                 case 5: {
                     // Vector
+                    auto start = std::chrono::high_resolution_clock::now();
                     const auto foundPairs = wordlist::findSameSumNoCommonLetters(wlFile, 188);
+                    auto stop = std::chrono::high_resolution_clock::now();
+
                     auto arrow{"├"};
                     const unsigned int foundPairsCount = foundPairs.size();
                     for (int i = 0; i < foundPairs.size(); ++i) {
@@ -166,9 +175,8 @@ int main() {
                                   << foundPairs[i].words.second << "' with sum " << foundPairs[i].sum
                                   << " share no letters\n";
                     }
-//                    for (const auto &pair: foundPairs) {
-//                        std::cout << pair.words.first << " & " << pair.words.second << " sum: " << pair.sum << "\n";
-//                    }
+                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+                    std::cout << "    Execution time: " << delta.count() << "ms\n";
                 }
                     // Other cases will be added
                 default:
