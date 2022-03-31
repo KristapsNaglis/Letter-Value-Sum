@@ -121,19 +121,33 @@ int main() {
             switch (r) {
                 case 1: {
                     unsigned int value = 319;
+                    auto start = std::chrono::high_resolution_clock::now();
                     std::string test = wordlist::findWordByValue(wlFile, value);
                     std::cout << "╰─> Word '" + test + "' has a value of " << value << "\n";
+                    auto stop = std::chrono::high_resolution_clock::now();
+                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+                    std::cout << "    Execution time: " << delta.count() << "ms\n";
+
                     break;
                 }
                 case 2: {
+                    auto start = std::chrono::high_resolution_clock::now();
                     unsigned int result = wordlist::countResultsEvenOdd(wlFile, true);
+                    auto stop = std::chrono::high_resolution_clock::now();
                     std::cout << "╰─> Found " << result << " odd words\n";
+                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+                    std::cout << "    Execution time: " << delta.count() << "ms\n";
                     break;
                 }
                 case 3: {
+                    auto start = std::chrono::high_resolution_clock::now();
                     std::pair<unsigned int, unsigned int> mostCommonSum = wordlist::findMostCommonLetterSum(wlFile);
+                    auto stop = std::chrono::high_resolution_clock::now();
                     std::cout << "╰─> Most common sum is '" << mostCommonSum.first << "' with count of "
                               << mostCommonSum.second << "\n";
+                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+                    std::cout << "    Execution time: " << delta.count() << "ms\n";
+
                     break;
                 }
                 case 4: {
