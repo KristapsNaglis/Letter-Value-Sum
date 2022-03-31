@@ -122,7 +122,6 @@ std::vector<twoWordsOneSum> wordlist::findPairWithSameSum(std::ifstream &file, c
 std::vector<twoWordsOneSum>wordlist::findSameSumNoCommonLetters(std::ifstream &file, const unsigned int &sumThreshold) {
     // Loop through file and save words only with value > sumThreshold - unordered_map<value, vector<words>>
     auto sums = sortWordsBySum(file, sumThreshold);
-    std::cout << sums.size() << "\n";
 
     // Create a place where to store the found matches
     std::vector<twoWordsOneSum> matches;

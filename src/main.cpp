@@ -156,7 +156,7 @@ int main() {
                     }
 
                     auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-                    std::cout << "Execution time: " << delta.count() << "ms\n";
+                    std::cout << "    Execution time: " << delta.count() << "ms\n";
                     break;
                 }
                 case 5: {
