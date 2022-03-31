@@ -93,22 +93,20 @@ std::pair<unsigned int, unsigned int> wordlist::findMostCommonLetterSum(std::ifs
 //  * both words have a length difference of "diff"
 std::vector<twoWordsOneSum> wordlist::findPairWithSameSum(std::ifstream &file, const unsigned int &diff) {
     // Loop through file and save words only with value > sumThreshold - unordered_map<value, vector<words>>
-    auto sums = sortWordsBySum(file, 0);
-
+    const auto sums = sortWordsBySum(file, 0);
     // Create a place where to store the found matches
     std::vector<twoWordsOneSum> matches;
 
     // Loop each saved word sets - pair<value, vector<words>>
     for (const auto& s: sums) {
+        const unsigned int sVectorSize = s.second.size();
 
         // Loop (i,j) all word pair combinations in the vector of words
-        for (int i = 0; i < s.second.size() - 1; ++i) {
+        for (unsigned int i = 0; i < sVectorSize - 1; ++i) {
             const unsigned int referenceWordLen = s.second[i].length();
-            for (int j = i + 1; j < s.second.size(); ++j) {
-                const unsigned int currentWordLen = s.second[j].length();
+            for (unsigned int j = i + 1; j < sVectorSize; ++j) {
 
-                // Calc both word length diffs and if it equals argument, add this pair to vector that func returns
-                if (calcDiff({referenceWordLen, currentWordLen}) == diff) {
+                if (calcDiff1(referenceWordLen, s.second[j].length()) == diff) {
                     matches.push_back({{s.second[i], s.second[j]}, s.first});
                 }
             }
@@ -124,6 +122,7 @@ std::vector<twoWordsOneSum> wordlist::findPairWithSameSum(std::ifstream &file, c
 std::vector<twoWordsOneSum>wordlist::findSameSumNoCommonLetters(std::ifstream &file, const unsigned int &sumThreshold) {
     // Loop through file and save words only with value > sumThreshold - unordered_map<value, vector<words>>
     auto sums = sortWordsBySum(file, sumThreshold);
+    std::cout << sums.size() << "\n";
 
     // Create a place where to store the found matches
     std::vector<twoWordsOneSum> matches;
@@ -163,7 +162,7 @@ std::unordered_map<unsigned int, std::vector<std::string>> wordlist::sortWordsBy
     if (file.is_open()) {
         while (getline(file, line)) {
             // Save each word in a vector inside a map that belongs to its sum
-            unsigned int sum = letterCalc::calculateSum(line);
+            const unsigned int sum = letterCalc::calculateSum(line);
 //            sums[sum].push_back(line);
 
             if (sum > sumThreshold) {
@@ -185,6 +184,14 @@ unsigned int wordlist::calcDiff(const std::pair<unsigned int, unsigned int> &int
         return integers.first - integers.second;
     } else {
         return integers.second - integers.first;
+    }
+}
+
+unsigned int wordlist::calcDiff1(const unsigned int &i1, const unsigned int &i2) {
+    if (i1 > i2) {
+        return i1 - i2;
+    } else {
+        return i2 - i1;
     }
 }
 

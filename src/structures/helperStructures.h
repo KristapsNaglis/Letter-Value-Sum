@@ -7,8 +7,8 @@
 #define LETTER_VALUE_SUM_TWOWORDSONESUM_H
 
 struct twoWordsOneSum {
-    std::pair<std::string, std::string> words;
-    unsigned int sum;
+    const std::pair<const std::string, const std::string> words;
+    const unsigned int sum;
 };
 
 #endif //LETTER_VALUE_SUM_TWOWORDSONESUM_H

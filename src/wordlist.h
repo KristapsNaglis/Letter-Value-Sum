@@ -36,6 +36,8 @@ private:
 
     static unsigned int calcDiff(const std::pair<unsigned int, unsigned int> &integers);
 
+    static unsigned int calcDiff1(const unsigned int &i1, const unsigned int &i2);
+
     static bool checkIfCommonLetter(const std::pair<std::string, std::string> &words);
 };
 
