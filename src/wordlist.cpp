@@ -130,11 +130,11 @@ std::vector<twoWordsOneSum>wordlist::findSameSumNoCommonLetters(std::ifstream &f
 
     // Loop each saved word sets - pair<value, vector<words>>
     for (const auto& s: sums) {
-
+        const unsigned int sVectorSize = s.second.size();
         // Loop (i,j) all word pair combinations in the vector of words
-        for (int i = 0; i < s.second.size() - 1; ++i) {
+        for (unsigned int i = 0; i < sVectorSize - 1; ++i) {
             const std::string referenceWord = s.second[i];
-            for (int j = i + 1; j < s.second.size(); ++j) {
+            for (unsigned int j = i + 1; j < sVectorSize; ++j) {
                 const std::string currentWord = s.second[j];
 
                 // Find common element
