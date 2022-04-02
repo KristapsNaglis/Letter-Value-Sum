@@ -81,5 +81,6 @@ Quitting...
 ---
 
 ### TODO
-Optimization for #4 and possibly #5 additional challenges
+
+1. Optimization for #4 and possibly #5 additional challenges
 ---
