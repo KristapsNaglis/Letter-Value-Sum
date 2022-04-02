@@ -31,67 +31,12 @@
 
 
 #include <iostream>
-#include <vector>
 #include <map>
-#include <chrono>
+#include "userInteractions.h"
 #include "wordlist.h"
 #include "letterCalc.h"
+#include "chronoTimer.h"
 
-// Get user input with getline
-std::string getUserWord() {
-    std::string return_word;
-    getline(std::cin, return_word);
-    return return_word;
-}
-
-// Ask user question with yes/no answer possibilities, return true/false accordingly
-bool question_y_n(const std::string &question) {
-    std::vector<std::vector<std::string>> answers{{"y", "Y", "yes", "YES", ""},
-                                                  {"n", "N", "no",  "NO"}};
-    std::string reply;
-
-    unsigned int repeatCounter = 0;
-    while (repeatCounter < 3) {
-        std::cout << question << ": ";
-        getline(std::cin, reply);
-        int counter = 0;
-        for (const std::vector<std::string> &vec: answers) {
-            counter++;
-            for (const std::string &answer: vec) {
-                if (answer == reply) {
-                    if (counter == 1) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            }
-        }
-        repeatCounter++;
-    }
-    return false;
-}
-
-unsigned int question_multi_range(const std::string &question, unsigned int from, unsigned int to) {
-    unsigned int reply;
-
-    unsigned int repeatCounter = 0;
-    while (repeatCounter < 3) {
-        std::cout << question << ": ";
-        std::cin >> reply;
-
-        std::cin.clear();
-        std::cin.ignore(256, '\n'); // clear all remaining input chars until newline
-
-        if (reply >= from && reply <= to) {
-            return reply;
-        }
-
-        std::cout << "Input not correct, please, try again\n";
-        repeatCounter++;
-    }
-    return 0;
-}
 
 int main() {
     std::cout << "=======================================================================\n";
@@ -99,105 +44,99 @@ int main() {
     std::cout << "=======================================================================\n";
 
     // Manual word input
-    if (question_y_n("\nManual word input check? [Enter/Y]es [N]o")) {
+    if (userInteractions::questionYesNo("\nManual word input check? [Enter/Y]es [N]o")) {
         do {
             std::cout << "------------------\n";
             std::cout << "╭─ Write a word: ";
-            std::string word = getUserWord();
+            std::string word = userInteractions::getUserWord();
             int sum = letterCalc::calculateSum(word);
             std::cout << "╰─> Sum of word '" << word << "' is " << sum << "\n";
             std::cout << "------------------\n";
-        } while (question_y_n("Do you want to repeat manual word input? [Enter/Y]es [N]o"));
+        } while (userInteractions::questionYesNo("Do you want to repeat manual word input? [Enter/Y]es [N]o"));
     }
 
     // Additional tasks
-    if (question_y_n("\nExecute additional tasks? [Enter/Y]es [N]o")) {
+    if (userInteractions::questionYesNo("\nExecute additional tasks? [Enter/Y]es [N]o")) {
         std::ifstream wlFile = wordlist::openFile("../resources/wordlist.txt");
 
         std::cout << "! Choose number 1 - 6. For each option, please check documentation\n";
         do {
             std::cout << "------------------\n";
-            unsigned int r = question_multi_range("╭─ Choose task number", 1, 6);
+            unsigned int r = userInteractions::questionMultiRange("╭─ Choose task number", 1, 6);
             switch (r) {
                 case 1: {
                     unsigned int value = 319;
-                    auto start = std::chrono::high_resolution_clock::now();
+                    chronoTimer chronoTimer;
+                    chronoTimer.start();
                     std::string test = wordlist::findWordByValue(wlFile, value);
-                    std::cout << "╰─> Word '" + test + "' has a value of " << value << "\n";
-                    auto stop = std::chrono::high_resolution_clock::now();
-                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-                    std::cout << "    Execution time: " << delta.count() << "ms\n";
-
+                    std::cout << "├─> Word '" + test + "' has a value of " << value << "\n";
+                    std::cout << "│\n╰─> Execution time: " << chronoTimer.stop() << "ms\n";
                     break;
                 }
                 case 2: {
-                    auto start = std::chrono::high_resolution_clock::now();
+                    chronoTimer chronoTimer;
+                    chronoTimer.start();
                     unsigned int result = wordlist::countResultsEvenOdd(wlFile, true);
-                    auto stop = std::chrono::high_resolution_clock::now();
-                    std::cout << "╰─> Found " << result << " odd words\n";
-                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-                    std::cout << "    Execution time: " << delta.count() << "ms\n";
+                    std::cout << "├─> Found " << result << " odd words\n";
+                    std::cout << "│\n╰─> Execution time: " << chronoTimer.stop() << "ms\n";
                     break;
                 }
                 case 3: {
-                    auto start = std::chrono::high_resolution_clock::now();
-                    std::pair<unsigned int, unsigned int> mostCommonSum = wordlist::findMostCommonLetterSum(wlFile);
-                    auto stop = std::chrono::high_resolution_clock::now();
-                    std::cout << "╰─> Most common sum is '" << mostCommonSum.first << "' with count of "
+                    chronoTimer chronoTimer;
+                    chronoTimer.start();
+                    auto mostCommonSum = wordlist::findMostCommonLetterSum(wlFile);
+                    std::cout << "├─> Most common sum is '" << mostCommonSum.first << "' with count of "
                               << mostCommonSum.second << "\n";
-                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-                    std::cout << "    Execution time: " << delta.count() << "ms\n";
+                    std::cout << "│\n╰─> Execution time: " << chronoTimer.stop() << "ms\n";
 
                     break;
                 }
                 case 4: {
                     const unsigned int difference = 11;
-                    // Vector to store found pairs
-                    auto start = std::chrono::high_resolution_clock::now();
+                    chronoTimer chronoTimer;
+                    chronoTimer.start();
+                    // Store found pairs in a vector
                     const auto foundPairs = wordlist::findPairWithSameSum(wlFile, difference);
-                    auto stop = std::chrono::high_resolution_clock::now();
-
-                    // Print the results with dynamically changing arrow. Takes a bit more resources, but looks cleaner
-                    const unsigned int foundPairsCount = foundPairs.size();
-                    auto arrow{"├"};
-                    for (int i = 0; i < foundPairsCount; ++i) {
-                        if (i == foundPairsCount - 1) {
-                            arrow = "╰";
-                        }
-                        std::cout << arrow << "─> Words '" << foundPairs[i].words.first << "', '"
-                                  << foundPairs[i].words.second << "' with sum " << foundPairs[i].sum
-                                  << " have length difference by " << difference << " letters\n";
+                    // Print a list of found pairs
+                    for (auto& pair: foundPairs) {
+                        std::cout << "├─> Words '" << pair.words.first << "', '" << pair.words.second << "' with sum "
+                                  << pair.sum << " have length difference by " << difference << " letters\n";
                     }
-
-                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-                    std::cout << "    Execution time: " << delta.count() << "ms\n";
+                    std::cout << "│\n╰─> Execution time: " << chronoTimer.stop() << "ms\n";
                     break;
                 }
                 case 5: {
                     // Vector
-                    auto start = std::chrono::high_resolution_clock::now();
+                    chronoTimer chronoTimer;
+                    chronoTimer.start();
+                    // Store found pairs in a vector
                     const auto foundPairs = wordlist::findSameSumNoCommonLetters(wlFile, 188);
-                    auto stop = std::chrono::high_resolution_clock::now();
-
-                    auto arrow{"├"};
-                    const unsigned int foundPairsCount = foundPairs.size();
-                    for (int i = 0; i < foundPairs.size(); ++i) {
-                        if (i == foundPairsCount - 1) {
-                            arrow = "╰";
-                        }
-                        std::cout << arrow << "─> Words '" << foundPairs[i].words.first << "', '"
-                                  << foundPairs[i].words.second << "' with sum " << foundPairs[i].sum
-                                  << " share no letters\n";
+                    // Print a list of found pairs
+                    for (auto& pair: foundPairs) {
+                        std::cout << "├─> Words '" << pair.words.first << "', '" << pair.words.second << "' with sum "
+                                  << pair.sum << " share no letters\n";
                     }
-                    auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-                    std::cout << "    Execution time: " << delta.count() << "ms\n";
+                    std::cout << "│\n╰─> Execution time: " << chronoTimer.stop() << "ms\n";
+                    break;
                 }
-                    // Other cases will be added
+                case 6: {
+                    chronoTimer chronoTimer;
+                    chronoTimer.start();
+                    // Store found pairs in a vector
+                    auto foundList = wordlist::task6(wlFile);
+                    // Print a list of found pairs
+                    std::cout << "├─> Found a chain of " << foundList.size() << " words\n│\n";
+                    for (auto& word: foundList) {
+                        std::cout << "├─> " << word << "\n";
+                    }
+                    std::cout << "│\n╰─> Execution time: " << chronoTimer.stop() << "ms\n";
+                    break;
+                }
                 default:
                     break;
             }
             std::cout << "------------------\n";
-        } while (question_y_n("Do you want to repeat additional tasks? [Enter/Y]es [N]o"));
+        } while (userInteractions::questionYesNo("Do you want to repeat additional tasks? [Enter/Y]es [N]o"));
 
         wlFile.close();
     }

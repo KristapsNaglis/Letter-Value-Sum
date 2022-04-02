@@ -151,6 +151,41 @@ std::vector<twoWordsOneSum>wordlist::findSameSumNoCommonLetters(std::ifstream &f
     return matches;
 }
 
+std::vector<std::string> wordlist::task6(std::ifstream &file) {
+    // Sort all words in an unordered_map by their LENGTH -> SUM_VALUES
+    // ==> unordered_map<int LENGTH, unordered_map<int SUM_VALUE, vector<WORDS>>>
+    auto m = sortWordsByLenAndSum(file);
+    std::vector<std::string> ret;
+
+    unsigned int largestCombo{0};
+
+    // Retries
+    for (auto retries = m.rbegin(); retries != m.rend(); ++retries) {
+        // Actual checker
+        // Loops through all lengths
+        unsigned int currentLastSum{0};
+        std::vector<std::string> tmpRet;
+
+        if (m.size() > ret.size()) {
+            for (auto length = retries; length != m.rend(); ++length) {
+                for (auto sum = length->second.begin(); sum != length->second.end(); ++sum) {
+                    if (sum->first > currentLastSum) {
+                        currentLastSum = sum->first;
+//                        std::cout << sum->second[0] << " => LEN: " << length->first << " SUM: " << sum->first << "\n";
+                        tmpRet.push_back(sum->second[0]);
+                        break;
+                    }
+                }
+            }
+            if (tmpRet.size() > ret.size()) {
+                ret = tmpRet;
+            }
+        }
+    }
+
+    return ret;
+}
+
 // ===
 // Private functions
 // ===
@@ -171,6 +206,19 @@ std::unordered_map<unsigned int, std::vector<std::string>> wordlist::sortWordsBy
         fileReturnToBeginning(file);
     }
     return sums;
+}
+
+std::map<unsigned int, std::map<unsigned int, std::vector<std::string>>> wordlist::sortWordsByLenAndSum(std::ifstream &file) {
+    std::map<unsigned int, std::map<unsigned int, std::vector<std::string>>> res;
+    std::string line;
+
+    if (file.is_open()) {
+        while (getline(file, line)) {
+            res[line.length()][letterCalc::calculateSum(line)].push_back(line);
+        }
+        fileReturnToBeginning(file);
+    }
+    return res;
 }
 
 void wordlist::fileReturnToBeginning(std::ifstream &file) {

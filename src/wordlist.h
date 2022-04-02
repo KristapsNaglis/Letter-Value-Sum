@@ -27,12 +27,18 @@ public:
 
     static std::vector<twoWordsOneSum> findPairWithSameSum(std::ifstream &file, const unsigned int &diff);
 
-    static std::vector<twoWordsOneSum> findSameSumNoCommonLetters(std::ifstream &file, const unsigned int &sumThreshold);
+    static std::vector<twoWordsOneSum>
+    findSameSumNoCommonLetters(std::ifstream &file, const unsigned int &sumThreshold);
+
+    static std::vector<std::string> task6(std::ifstream &file);
 
 private:
     static void fileReturnToBeginning(std::ifstream &file);
 
-    static std::unordered_map<unsigned int, std::vector<std::string>> sortWordsBySum(std::ifstream &file, const unsigned int &sumThreshold);
+    static std::unordered_map<unsigned int, std::vector<std::string>>
+    sortWordsBySum(std::ifstream &file, const unsigned int &sumThreshold);
+
+    static std::map<unsigned int, std::map<unsigned int, std::vector<std::string>>> sortWordsByLenAndSum(std::ifstream &file);
 
     static unsigned int calcDiff(const std::pair<unsigned int, unsigned int> &integers);
 
