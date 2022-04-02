@@ -125,29 +125,6 @@ std::vector<twoWordsOneSum> wordlist::findPairWithSameSum(std::ifstream &file, c
         }
     }
     return matches;
-
-
-//    // Loop through file and save words only with value > sumThreshold - unordered_map<value, vector<words>>
-//    const auto sums = sortWordsBySum(file, 0);
-//    // Create a place where to store the found matches
-//    std::vector<twoWordsOneSum> matches;
-//
-//    // Loop each saved word sets - map<uint value, vector<words>>
-//    for (const auto &s: sums) {
-//        const unsigned int sVectorSize = s.second.size();
-//
-//        // Loop (i,j) all word pair combinations in the vector of words
-//        for (unsigned int i = 0; i < sVectorSize - 1; ++i) {
-//            const unsigned int referenceWordLen = s.second[i].length();
-//            for (unsigned int j = i + 1; j < sVectorSize; ++j) {
-//
-//                if (calcDiff(referenceWordLen, s.second[j].length()) == diff) {
-//                    matches.push_back({{s.second[i], s.second[j]}, s.first});
-//                }
-//            }
-//        }
-//    }
-//    return matches;
 }
 
 // Task 5
