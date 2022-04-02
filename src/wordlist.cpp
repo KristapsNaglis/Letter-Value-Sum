@@ -106,7 +106,7 @@ std::vector<twoWordsOneSum> wordlist::findPairWithSameSum(std::ifstream &file, c
             const unsigned int referenceWordLen = s.second[i].length();
             for (unsigned int j = i + 1; j < sVectorSize; ++j) {
 
-                if (calcDiff1(referenceWordLen, s.second[j].length()) == diff) {
+                if (calcDiff(referenceWordLen, s.second[j].length()) == diff) {
                     matches.push_back({{s.second[i], s.second[j]}, s.first});
                 }
             }
@@ -151,35 +151,40 @@ std::vector<twoWordsOneSum>wordlist::findSameSumNoCommonLetters(std::ifstream &f
     return matches;
 }
 
+// Finds the longest possible vector of words in which:
+//  * each word has a different length and sum
+//  * vector sorted:
+//      * descending word length
+//      * ascending word sum
 std::vector<std::string> wordlist::task6(std::ifstream &file) {
     // Sort all words in an unordered_map by their LENGTH -> SUM_VALUES
     // ==> unordered_map<int LENGTH, unordered_map<int SUM_VALUE, vector<WORDS>>>
-    auto m = sortWordsByLenAndSum(file);
+    auto sortedMap = sortWordsByLenAndSum(file);
     std::vector<std::string> ret;
 
-    unsigned int largestCombo{0};
-
-    // Retries
-    for (auto retries = m.rbegin(); retries != m.rend(); ++retries) {
+    // Loop through the sortedMap as many times as there are LENGTH elements
+    for (auto retries = sortedMap.rbegin(); retries != sortedMap.rend(); ++retries) {
         // Actual checker
         // Loops through all lengths
-        unsigned int currentLastSum{0};
-        std::vector<std::string> tmpRet;
+        unsigned int lastSum{0};
+        std::vector<std::string> tmpRet; // This vector temporarily stores found words
 
-        if (m.size() > ret.size()) {
-            for (auto length = retries; length != m.rend(); ++length) {
-                for (auto sum = length->second.begin(); sum != length->second.end(); ++sum) {
-                    if (sum->first > currentLastSum) {
-                        currentLastSum = sum->first;
-//                        std::cout << sum->second[0] << " => LEN: " << length->first << " SUM: " << sum->first << "\n";
-                        tmpRet.push_back(sum->second[0]);
-                        break;
-                    }
+        // Loop through all remaining word LENGTHS. Each time it starts from a lesser LENGTH (last LENGTH - 1)
+        for (auto length = retries; length != sortedMap.rend(); ++length) {
+            // Loop through word VALUES
+            for (auto &sum: length->second) {
+                // If current word VALUE if larger than the previous saved word VALUE, then append the first
+                // word from current VALUE vector to the temporary word vector
+                if (sum.first > lastSum) {
+                    lastSum = sum.first;
+                    tmpRet.push_back(sum.second[0]);
+                    break;
                 }
             }
-            if (tmpRet.size() > ret.size()) {
-                ret = tmpRet;
-            }
+        }
+        // If the temporary vector has more words, then save it as the new best vector
+        if (tmpRet.size() > ret.size()) {
+            ret = tmpRet;
         }
     }
 
@@ -226,15 +231,7 @@ void wordlist::fileReturnToBeginning(std::ifstream &file) {
     file.seekg(0);
 }
 
-unsigned int wordlist::calcDiff(const std::pair<unsigned int, unsigned int> &integers) {
-    if (integers.first > integers.second) {
-        return integers.first - integers.second;
-    } else {
-        return integers.second - integers.first;
-    }
-}
-
-unsigned int wordlist::calcDiff1(const unsigned int &i1, const unsigned int &i2) {
+unsigned int wordlist::calcDiff(const unsigned int &i1, const unsigned int &i2) {
     if (i1 > i2) {
         return i1 - i2;
     } else {

@@ -40,9 +40,7 @@ private:
 
     static std::map<unsigned int, std::map<unsigned int, std::vector<std::string>>> sortWordsByLenAndSum(std::ifstream &file);
 
-    static unsigned int calcDiff(const std::pair<unsigned int, unsigned int> &integers);
-
-    static unsigned int calcDiff1(const unsigned int &i1, const unsigned int &i2);
+    static unsigned int calcDiff(const unsigned int &i1, const unsigned int &i2);
 
     static bool checkIfCommonLetter(const std::pair<std::string, std::string> &words);
 };
